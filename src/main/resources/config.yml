@@ -1,0 +1,12 @@
+#是否启用日志 可能会消耗性能
+start-logs: true
+#是否启用经济插件
+start-value: false
+#自动取消未被同意的请求时间 秒
+cancel-second: 60
+#是否要求前行
+sneak-mode: true
+#双方同意 取消的时长 秒
+continue-second: 5
+#right-click: true
+
