@@ -1,12 +1,13 @@
-#是否启用日志 可能会消耗性能
-start-logs: true
-#是否启用经济插件
-start-value: false
 #自动取消未被同意的请求时间 秒
 cancel-second: 60
 #是否要求前行
 sneak-mode: true
 #双方同意 取消的时长 秒
 continue-second: 5
-#right-click: true
-
+#记录日志
+start-logs:
+  enabled: true
+  #是否在控制台输出每次交易的内容
+  console-enabled: true
+#  #是否启用实时保存文件(比较消耗性能)
+#  auto-save: false

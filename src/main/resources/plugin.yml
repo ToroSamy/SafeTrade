@@ -1,33 +1,7 @@
-name: SafeTradeYwY
-version: '${project.version}'
-main: net.torosamy.safetradeywy.SafeTradeYwY
-author: yweiyang
-api-version: '1.20'
-softdepend:
+name: SafeTrade
+version: '2.0-SNAPSHOT'
+main: net.torosamy.safeTrade.SafeTrade
+api-version: '1.21'
+depend:
+  - TorosamyCore
   - PlaceholderAPI
-commands:
-  trade:
-    usage: /trade
-    permission: safetradeywy.use
-  tradeywy:
-    usage: /tradeywy
-    permission: safetradeywy.reload
-permissions:
-  safetradeywy.use:
-    default: true
-    description: "if can use this plugin function"
-  safetradeywy.send:
-    default: true
-    description: "if can send a trade"
-  safetradeywy.accept:
-    default: true
-    description: "if can accept a trade"
-  safetradeywy.reject:
-    default: true
-    description: "if can reject a trade"
-  safetradeywy.cancel:
-    default: true
-    description: "if can cancel a trade"
-  safetradeywy.reload:
-    default: op
-    description: "if can reload this plugin config"

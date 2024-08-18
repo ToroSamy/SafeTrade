@@ -1,22 +1,39 @@
-global-message:
-  no-permission: "&b[服务器娘]&c对不起 您未被授权这么做"
-  reload-successful: "&b[服务器娘]&a重载成功!"
-  no-find-trade: "&b[服务器娘]&c尚未查找到与此相关的交易"
-  input-strings-error: "&b[服务器娘]&c您输入的指令格式有误 请检查指令格式"
-  no-find-player: "&b[服务器娘]&c抱歉 尚未找到该玩家"
-trade-message:
-  player-send-successful-self: "&b[服务器娘]&a成功向&e %receiver_name% &a发起了交易请求 点击这条消息以取消"
-  player-send-successful-other: "&b[服务器娘]&a玩家 &e%sender_name% &a向您发起了交易请求 交易将于 &e%s% &a秒后取消"
-  player-accept-fail-notrade: "&b[服务器娘]&a同意请求失败 您还没有受到任何一个交易请求"
-  player-send-fail: "&b[服务器娘]&c抱歉 您与玩家 &e%receiver_name% &c之间已经存在一个交易请求"
-  player-cancel-successful: "&b[服务器娘]&a成功取消与玩家 &e%receiver_name% &a的交易请求"
-  player-send-accept: "&b[服务器娘]&a玩家 &e%receiver_name% &a接受了您的交易请求"
-  player-send-reject: "&b[服务器娘]&c玩家 &e%receiver_name% &c拒绝了您的交易请求"
-  player-receive-accept: "&b[服务器娘]&a您接受了玩家 &e%sender_name% &a的交易请求"
-  player-receive-reject: "&b[服务器娘]&c您拒绝了玩家 &e%sender_name% &c的交易请求"
-  player-accept-fail-ontrade: "&b[服务器娘]&c抱歉 该玩家目前正在与其他玩家交易 请耐心等待"
-  trade-fail-inventory-noempty: "&b[服务器娘]&c抱歉 有一方的未有12格空 物品已返还"
-  trade-success: "&b[服务器娘]&a交易成功!"
-  hover-cancel: "&a点击这条消息以取消"
-  hover-accept: "&a点击这条消息以接受"
-  hover-reject: "&c点击这条消息以拒绝"
+no-find-trade: "&b[服务器娘]&c尚未查找到与此相关的交易"
+trade-success: "&b[服务器娘]&a交易成功!"
+
+
+trade-inventory-title: "安全交易"
+reload-message: "&b[服务器娘]&a插件 &eSafeTrade &a重载成功喵~"
+
+
+red-button-hover: "&c点击以结束准备"
+green-button-hover: "&a点击以中断交易"
+gray-frame-item-hover: "&e装饰线"
+yellow-not-confirm: "&e等待双方结束准备"
+yellow-confirm-duration: "&e完成倒计时 {duration} 秒"
+
+send-fail-self: "&b[服务器娘]&c发起失败 &e%sender_name% &c还有一个尚未处理的交易请求"
+send-fail-ignore: "&b[服务器娘]&c发起失败 &e{player} &c已屏蔽您的交易"
+send-fail-other: "&b[服务器娘]&c发起失败 &e%receiver_name% &c还有一个尚未处理的交易请求"
+send-success-self: "&b[服务器娘]&a成功向 &e%receiver_name% &a发起了交易请求 点击这条消息以取消"
+hover-cancel: "&a点击这条消息以取消"
+
+send-success-other: "&b[服务器娘]&a玩家 &e%sender_name% &a向您发起了交易请求 交易将于 &e%s% &a秒后取消"
+text-accept: "&a点击这条消息以接受"
+hover-accept: "&a点击这条消息以接受"
+text-deny: "&c点击这条消息以拒绝"
+hover-deny: "&c点击这条消息以拒绝"
+
+cancel-success: "&b[服务器娘]&a成功取消与玩家 &e%receiver_name% &a的交易请求"
+cancel-fail: "&b[服务器娘]&c取消失败 未找到与玩家 &e%sender_name% &c相关的交易"
+
+accept-fail: "&b[服务器娘]&c接受失败 未找到与玩家 &e%receiver_name% &c相关的交易"
+accept-success-receiver: "&b[服务器娘]&a您接受了玩家 &e%sender_name% &a的交易请求"
+accept-success-sender: "&b[服务器娘]&a玩家 &e%receiver_name% &a接受了您的交易请求"
+
+deny-fail: "&b[服务器娘]&c拒绝失败 未找到与玩家 &e%receiver_name% &c相关的交易"
+deny-fail-sender: "&b[服务器娘]&c玩家 &e%receiver_name% &c拒绝了您的交易请求"
+deny-fail-receiver: "&b[服务器娘]&c您拒绝了玩家 &e%sender_name% &c的交易请求"
+
+remove-ignore: "&b[服务器娘]&a您解除了对玩家 &e{player} &a的屏蔽"
+add-ignore: "&b[服务器娘]&a您屏蔽了玩家的 &e{player} &a的交易"
