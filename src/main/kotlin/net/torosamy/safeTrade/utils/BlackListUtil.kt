@@ -11,17 +11,28 @@ class BlackListUtil {
         lateinit var yamlConfiguration: YamlConfiguration
         fun loadFile() {
             val file = File(SafeTrade.plugin.dataFolder.path, "black-list.yml")
-            if (!file.exists()) {SafeTrade.plugin.saveResource("black-list.yml", false)}
+            if (!file.exists()) {
+                SafeTrade.plugin.saveResource("black-list.yml", false)
+            }
             yamlConfiguration = YamlConfiguration.loadConfiguration(file)
         }
+
         fun readFile() {
             for (key in yamlConfiguration.getKeys(false)) {
-                map.put(key, yamlConfiguration.get(key) as HashSet<String>)
+                val stringList = yamlConfiguration.getStringList(key)
+                val set = HashSet<String>()
+                stringList.forEach { str: String -> set.add(str) }
+                map[key] = set
             }
         }
 
         fun writeFile() {
-            map.forEach { (key, value) -> yamlConfiguration.set(key,HashSet<String>(value)) }
+            map.forEach { (key, sets) ->
+                val list = ArrayList<String>()
+                sets.forEach { set -> list.add(set) }
+
+                yamlConfiguration.set(key, list)
+            }
             yamlConfiguration.save(File(SafeTrade.plugin.dataFolder.path, "black-list.yml"))
         }
     }

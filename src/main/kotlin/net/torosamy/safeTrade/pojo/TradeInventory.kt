@@ -70,7 +70,7 @@ class TradeInventory(var trade: Trade) {
 
     var inventory: Inventory = createBaseInventory()
     fun createBaseInventory(): Inventory {
-        var inventory = Bukkit.createInventory(null,54,MessageUtil.text(ConfigUtil.getLangConfig().tradeInventoryTitle))
+        val inventory = Bukkit.createInventory(null,54,MessageUtil.text(ConfigUtil.getLangConfig().tradeInventoryTitle))
         for (grayFrameSlot in grayFrameSlots) {
             inventory.setItem(grayFrameSlot, grayFrameItem);
         }

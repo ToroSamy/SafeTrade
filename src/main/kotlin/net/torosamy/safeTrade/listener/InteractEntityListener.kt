@@ -50,7 +50,7 @@ class InteractEntityListener : Listener {
         val denyText = HoverUtil.replacePapi(ConfigUtil.getLangConfig().textDeny,sender.name,receiver.name)
         val denyHover = HoverUtil.replacePapi(ConfigUtil.getLangConfig().hoverDeny,sender.name,receiver.name)
 
-        receiver.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().sendSuccessOther))
+        receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().sendSuccessOther,sender.name,receiver.name))
         HoverUtil.sendCommandHover(receiver, HoverUtil.createCommandHover(acceptText,"/trade accept",acceptHover))
         HoverUtil.sendCommandHover(receiver, HoverUtil.createCommandHover(denyText,"/trade deny",denyHover))
     }

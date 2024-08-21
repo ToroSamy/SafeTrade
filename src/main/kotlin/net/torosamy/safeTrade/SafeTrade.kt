@@ -24,6 +24,7 @@ class SafeTrade : JavaPlugin() {
 
     override fun onDisable() {
         ConfigUtil.saveConfig()
+        BlackListUtil.writeFile()
 
         Bukkit.getConsoleSender().sendMessage(MessageUtil.text("&a[服务器娘]&c插件 &eSafeTrade &c成功关闭喵~"))
         Bukkit.getConsoleSender().sendMessage(MessageUtil.text("&a[服务器娘]&c作者 &eTorosamy|yweiyang"))

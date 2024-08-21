@@ -10,8 +10,8 @@ public class LangConfig extends TorosamyConfig {
     public String yellowNotConfirm;
     public String yellowConfirmDuration;
     public String tradeInventoryTitle;
-    public String giveToSenderTile;
-    public String giveToReceiverTile;
+    public String giveToSenderTitle;
+    public String giveToReceiverTitle;
     public String sendFailSelf;
     public String sendFailOther;
     public String sendSuccessSelf;

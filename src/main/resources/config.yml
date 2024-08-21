@@ -9,5 +9,3 @@ start-logs:
   enabled: true
   #是否在控制台输出每次交易的内容
   console-enabled: true
-#  #是否启用实时保存文件(比较消耗性能)
-#  auto-save: false

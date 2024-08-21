@@ -1,3 +1,58 @@
+## Dependency
+- TorosamyCore
+## Usage
+1. download [TorosamyCore](https://github.com/ToroSamy/TorosamyCore)  as a dependency plugin
+2. put the **dependencies** and this plugin into your plugins folder and start your server
+3. Modify the default configuration file generated and restart your server
+4. Determine whether to hold down the stealth key based on your configuration file and right-click
+## Permission
+- - **Usage:** /trade reload
+  - **Description:** reload this plugin
+  - **Permission:** safetrade.reload
+  <br>
+- - **Usage:** /trade show
+  - **Description:** Output all logs in memory
+  - **Permission:** safetrade.show
+  <br>
+- - **Usage:** /trade send player-name
+  - **Description:** Send the request to a player
+  - **Permission:** safetrade.send
+  <br>
+- - **Usage:** /trade cancel
+  - **Description:** Cancel the request
+  - **Permission:** safetrade.cancel
+  <br>
+- - **Usage:** /trade accept
+  - **Description:** Accept the request
+  - **Permission:** safetrade.accept
+  <br>
+- - **Usage:** /trade deny
+  - **Description:** Dent the request
+  - **Permission:** safetrade.deny
+  <br>
+- - **Usage:** /trade ignore player-name
+  - **Description:** Ignore a player's request
+  - **Permission:** safetrade.ignore
+## Config
+
+### config.yml
+```yml
+#自动取消未被同意的请求时间 秒
+cancel-second: 60
+#是否要求前行
+sneak-mode: true
+#双方同意 取消的时长 秒
+continue-second: 5
+#记录日志
+start-logs:
+  enabled: true
+  #是否在控制台输出每次交易的内容
+  console-enabled: true
+```
+### player-toggle.yml
+
+### lang.yml
+```yml
 no-find-trade: "&b[服务器娘]&c尚未查找到与此相关的交易"
 trade-success: "&b[服务器娘]&a交易成功!"
 trade-inventory-title: "安全交易"
@@ -29,3 +84,13 @@ deny-success-sender: "&b[服务器娘]&c玩家 &e%receiver_name% &c拒绝了您�
 deny-success-receiver: "&b[服务器娘]&c您拒绝了玩家 &e%sender_name% &c的交易请求"
 remove-ignore: "&b[服务器娘]&a您解除了对玩家 &e{player} &a的屏蔽"
 add-ignore: "&b[服务器娘]&a您屏蔽了玩家的 &e{player} &a的交易"
+```
+
+## Contact Author
+
+- qq: 1364596766
+- website: https://www.torosamy.net
+
+## License
+
+[MIT](./LICENSE)

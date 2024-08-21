@@ -44,7 +44,9 @@ class TradeManager {
 
         fun removeTrade(index: Int):Boolean {
             if(index == -1) return false
-            tradeList.removeAt(index)
+            val trade = tradeList.get(index)
+            trade.tradeInventory.isFinished = true
+            tradeList.remove(trade)
             return true
         }
 
@@ -58,7 +60,7 @@ class TradeManager {
 
         fun getTradeIndex(name:String):Int {
             for ((index, trade) in tradeList.withIndex()) {
-                if(trade.receiver.name.equals(name) || trade.sender.name.equals(name)) return index
+                if(trade.receiver.name == name || trade.sender.name == name) return index
             }
             return -1;
         }

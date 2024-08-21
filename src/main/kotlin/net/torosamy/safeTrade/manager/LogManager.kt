@@ -1,9 +1,6 @@
 package net.torosamy.safeTrade.manager
 
 import net.torosamy.safeTrade.pojo.Log
-import org.bukkit.configuration.file.YamlConfiguration
-import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 
 class LogManager {

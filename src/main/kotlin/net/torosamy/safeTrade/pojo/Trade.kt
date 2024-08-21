@@ -1,7 +1,7 @@
 package net.torosamy.safeTrade.pojo
 
 import net.torosamy.safeTrade.utils.ConfigUtil
-import net.torosamy.torosamyCore.utils.MessageUtil
+import net.torosamy.safeTrade.utils.HoverUtil
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -11,8 +11,8 @@ class Trade(var sender: Player,var receiver: Player) {
     var tradeInventory: TradeInventory = TradeInventory(this)
     var isSenderConfirm: Boolean = false
     var isReceiverConfirm: Boolean = false
-    var giveToSenderKit: Inventory = Bukkit.createInventory(null,27,MessageUtil.text(ConfigUtil.getLangConfig().giveToSenderTile))
-    var giveToReceiverKit: Inventory = Bukkit.createInventory(null,27,MessageUtil.text(ConfigUtil.getLangConfig().giveToReceiverTile))
+    var giveToSenderKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.getLangConfig().giveToSenderTitle,sender.name,receiver.name))
+    var giveToReceiverKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.getLangConfig().giveToReceiverTitle,sender.name,receiver.name))
     var isHandled: Boolean = false
     fun clearGiveToSenderKit() {this.giveToSenderKit.clear()}
     fun updateGiveToSenderKit() {
@@ -23,7 +23,7 @@ class Trade(var sender: Player,var receiver: Player) {
             this.giveToSenderKit.addItem(item)
         }
     }
-    fun clearGiveToReceiverKit() {this.giveToSenderKit.clear()}
+    fun clearGiveToReceiverKit() {this.giveToReceiverKit.clear()}
     fun updateGiveToReceiverKit() {
         clearGiveToReceiverKit()
         for (slot in TradeInventory.senderCanSlots) {

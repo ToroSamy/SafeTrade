@@ -1,9 +1,7 @@
 package net.torosamy.safeTrade.commands
 
 import net.torosamy.safeTrade.SafeTrade
-import net.torosamy.safeTrade.manager.BlackListManager
 import net.torosamy.safeTrade.manager.TradeManager
-import net.torosamy.safeTrade.pojo.BlackList
 import net.torosamy.safeTrade.scheduler.CheckSuccessTask
 import net.torosamy.safeTrade.utils.BlackListUtil
 import net.torosamy.safeTrade.utils.ConfigUtil
@@ -52,7 +50,7 @@ class PlayerCommands {
     @Permission("safetrade.cancel")
     @CommandDescription("取消自己的交易请求")
     fun cancelTrade(sender: CommandSender) {
-        if (TradeManager.removeTrade(sender.name)) MessageUtil.text(ConfigUtil.getLangConfig().cancelSuccess)
+        if (TradeManager.removeTrade(sender.name)) { MessageUtil.text(ConfigUtil.getLangConfig().cancelSuccess) }
         else MessageUtil.text(ConfigUtil.getLangConfig().cancelFail)
     }
 
@@ -111,7 +109,7 @@ class PlayerCommands {
         if (blackSet == null) {
             val set = HashSet<String>()
             set.add(player.name)
-            BlackListUtil.map[player.name] = set
+            BlackListUtil.map[sender.name] = set
             sender.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().addIgnore).replace("{player}", player.name))
             return
         }
