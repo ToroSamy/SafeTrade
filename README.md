@@ -49,7 +49,6 @@ start-logs:
   #是否在控制台输出每次交易的内容
   console-enabled: true
 ```
-### player-toggle.yml
 
 ### lang.yml
 ```yml
