@@ -1,5 +1,12 @@
 ## Dependency
 - TorosamyCore
+## Function
+- Quickly initiate requests through stealth and right-click
+- Quickly process requests by clicking on the chat bar
+- Block other people's transaction requests separately to prevent harassment
+- Monitor the content of transactions through logs
+## FuturePlans
+- Add economic system
 ## Usage
 1. download [TorosamyCore](https://github.com/ToroSamy/TorosamyCore)  as a dependency plugin
 2. put the **dependencies** and this plugin into your plugins folder and start your server
