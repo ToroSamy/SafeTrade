@@ -99,4 +99,4 @@ add-ignore: "&b[服务器娘]&a您屏蔽了玩家的 &e{player} &a的交易"
 
 ## License
 
-[MIT](./LICENSE)
+[GPL-3.0 license](./LICENSE)
