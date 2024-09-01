@@ -24,21 +24,21 @@ class TradeManager {
 
             val senderIndex = getTradeIndex(sender.name)
             if(senderIndex != -1) {
-                val message = HoverUtil.replacePapi(ConfigUtil.getLangConfig().sendFailSelf,sender.name,receiver.name)
+                val message = HoverUtil.replacePapi(ConfigUtil.langConfig.sendFailSelf,sender.name,receiver.name)
                 sender.sendMessage(message)
                 return false
             }
 
             val receiverIndex = getTradeIndex(receiver.name)
             if (receiverIndex != -1) {
-                val message = HoverUtil.replacePapi(ConfigUtil.getLangConfig().sendFailOther,sender.name,receiver.name)
+                val message = HoverUtil.replacePapi(ConfigUtil.langConfig.sendFailOther,sender.name,receiver.name)
                 sender.sendMessage(message)
                 return false
             }
             //如果发送成功 则开始监测 以便于自动删除
             val trade = Trade(sender, receiver)
             tradeList.add(trade)
-            CheckCancelTask(ConfigUtil.getMainConfig().cancelSecond,trade).runTaskTimer(SafeTrade.plugin,0L,20L)
+            CheckCancelTask(ConfigUtil.mainConfig.cancelSecond,trade).runTaskTimer(SafeTrade.plugin,0L,20L)
             return true
         }
 

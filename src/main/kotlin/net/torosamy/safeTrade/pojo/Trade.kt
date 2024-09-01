@@ -11,8 +11,8 @@ class Trade(var sender: Player,var receiver: Player) {
     var tradeInventory: TradeInventory = TradeInventory(this)
     var isSenderConfirm: Boolean = false
     var isReceiverConfirm: Boolean = false
-    var giveToSenderKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.getLangConfig().giveToSenderTitle,sender.name,receiver.name))
-    var giveToReceiverKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.getLangConfig().giveToReceiverTitle,sender.name,receiver.name))
+    var giveToSenderKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.langConfig.giveToSenderTitle,sender.name,receiver.name))
+    var giveToReceiverKit: Inventory = Bukkit.createInventory(null,27,HoverUtil.replacePapi(ConfigUtil.langConfig.giveToReceiverTitle,sender.name,receiver.name))
     var isHandled: Boolean = false
     fun clearGiveToSenderKit() {this.giveToSenderKit.clear()}
     fun updateGiveToSenderKit() {

@@ -25,14 +25,14 @@ class TradeInventory(var trade: Trade) {
         private fun createRedButton():ItemStack {
             var itemStack:ItemStack = ItemStack(Material.RED_STAINED_GLASS_PANE)
             var itemMeta: ItemMeta = itemStack.itemMeta as ItemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.getLangConfig().redButtonHover))
+            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.redButtonHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
         private fun createGreenButton():ItemStack {
             var itemStack:ItemStack = ItemStack(Material.LIME_STAINED_GLASS_PANE)
             var itemMeta: ItemMeta = itemStack.itemMeta as ItemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.getLangConfig().greenButtonHover))
+            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.greenButtonHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
@@ -40,7 +40,7 @@ class TradeInventory(var trade: Trade) {
         private fun createGrayFrame(): ItemStack {
             val itemStack = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
             val itemMeta = itemStack.itemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.getLangConfig().grayFrameItemHover))
+            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.grayFrameItemHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
@@ -51,7 +51,7 @@ class TradeInventory(var trade: Trade) {
     fun createYellowConfirmItem(): ItemStack {
         val itemStack = ItemStack(Material.YELLOW_STAINED_GLASS_PANE)
         val itemMeta = itemStack.itemMeta
-        itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.getLangConfig().yellowNotConfirm,trade.sender.name,trade.receiver.name))
+        itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.langConfig.yellowNotConfirm,trade.sender.name,trade.receiver.name))
         itemStack.setItemMeta(itemMeta)
         return itemStack
     }
@@ -59,9 +59,9 @@ class TradeInventory(var trade: Trade) {
     fun updateYellowButton(duration: Int) {
         val itemMeta = yellowConfirmItem.itemMeta
         //如果duration的时长 < 0 则认为双方未准备完成
-        if (duration < 0) itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.getLangConfig().yellowNotConfirm,trade.sender.name,trade.receiver.name))
+        if (duration < 0) itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.langConfig.yellowNotConfirm,trade.sender.name,trade.receiver.name))
         //如果duration的时长 >= 0 则认为双方正等待交易完成
-        else itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.getLangConfig().yellowConfirmDuration,trade.sender.name,trade.receiver.name).replace("{duration}",duration.toString()))
+        else itemMeta.setDisplayName(HoverUtil.replacePapi(ConfigUtil.langConfig.yellowConfirmDuration,trade.sender.name,trade.receiver.name).replace("{duration}",duration.toString()))
 
         yellowConfirmItem.setItemMeta(itemMeta)
         inventory.setItem(confirmButtonSlot, yellowConfirmItem)
@@ -70,7 +70,7 @@ class TradeInventory(var trade: Trade) {
 
     var inventory: Inventory = createBaseInventory()
     fun createBaseInventory(): Inventory {
-        val inventory = Bukkit.createInventory(null,54,MessageUtil.text(ConfigUtil.getLangConfig().tradeInventoryTitle))
+        val inventory = Bukkit.createInventory(null,54,MessageUtil.text(ConfigUtil.langConfig.tradeInventoryTitle))
         for (grayFrameSlot in grayFrameSlots) {
             inventory.setItem(grayFrameSlot, grayFrameItem);
         }

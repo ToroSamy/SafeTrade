@@ -22,7 +22,7 @@ class PlayerCommands {
         val blackSet = BlackListUtil.map[player.name]
         //如果被发起者没有黑名单 或者黑名单不包含 则继续
         if (blackSet != null && blackSet.contains(sender.name)) {
-            sender.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().sendFailIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.sendFailIgnore).replace("{player}", player.name))
             return
         }
 
@@ -31,17 +31,17 @@ class PlayerCommands {
         //如果发送失败则返回
         if(!TradeManager.addTrade(sender as Player, player)) return
         //向发送者发送信息
-        val senderMessage = HoverUtil.replacePapi(ConfigUtil.getLangConfig().sendSuccessSelf,sender.name,player.name)
-        val cancelHover = HoverUtil.replacePapi(ConfigUtil.getLangConfig().hoverCancel,sender.name,player.name)
+        val senderMessage = HoverUtil.replacePapi(ConfigUtil.langConfig.sendSuccessSelf,sender.name,player.name)
+        val cancelHover = HoverUtil.replacePapi(ConfigUtil.langConfig.hoverCancel,sender.name,player.name)
         HoverUtil.sendCommandHover(sender,HoverUtil.createCommandHover(senderMessage,"/trade cancel",cancelHover))
         //向接收者发送信息
-        val acceptText = HoverUtil.replacePapi(ConfigUtil.getLangConfig().textAccept,sender.name,player.name)
-        val acceptHover = HoverUtil.replacePapi(ConfigUtil.getLangConfig().hoverAccept,sender.name,player.name)
+        val acceptText = HoverUtil.replacePapi(ConfigUtil.langConfig.textAccept,sender.name,player.name)
+        val acceptHover = HoverUtil.replacePapi(ConfigUtil.langConfig.hoverAccept,sender.name,player.name)
 
-        val denyText = HoverUtil.replacePapi(ConfigUtil.getLangConfig().textDeny,sender.name,player.name)
-        val denyHover = HoverUtil.replacePapi(ConfigUtil.getLangConfig().hoverDeny,sender.name,player.name)
+        val denyText = HoverUtil.replacePapi(ConfigUtil.langConfig.textDeny,sender.name,player.name)
+        val denyHover = HoverUtil.replacePapi(ConfigUtil.langConfig.hoverDeny,sender.name,player.name)
 
-        player.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().sendSuccessOther))
+        player.sendMessage(MessageUtil.text(ConfigUtil.langConfig.sendSuccessOther))
         HoverUtil.sendCommandHover(player,HoverUtil.createCommandHover(acceptText,"/trade accept",acceptHover))
         HoverUtil.sendCommandHover(player,HoverUtil.createCommandHover(denyText,"/trade deny",denyHover))
     }
@@ -50,8 +50,8 @@ class PlayerCommands {
     @Permission("safetrade.cancel")
     @CommandDescription("取消自己的交易请求")
     fun cancelTrade(sender: CommandSender) {
-        if (TradeManager.removeTrade(sender.name)) { MessageUtil.text(ConfigUtil.getLangConfig().cancelSuccess) }
-        else MessageUtil.text(ConfigUtil.getLangConfig().cancelFail)
+        if (TradeManager.removeTrade(sender.name)) { MessageUtil.text(ConfigUtil.langConfig.cancelSuccess) }
+        else MessageUtil.text(ConfigUtil.langConfig.cancelFail)
     }
 
     @Command(value = "trade accept", requiredSender = Player::class)
@@ -60,7 +60,7 @@ class PlayerCommands {
     fun acceptTrade(receiver: CommandSender) {
         val index = TradeManager.getTradeIndex(receiver.name)
         if(index == -1) {
-            receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().acceptFail,receiver.name))
+            receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.acceptFail,receiver.name))
         }else{
             val trade = TradeManager.tradeList.get(index)
 
@@ -68,13 +68,13 @@ class PlayerCommands {
 
             trade.sender.openInventory(trade.tradeInventory.inventory)
             trade.receiver.openInventory(trade.tradeInventory.inventory)
-            CheckSuccessTask(ConfigUtil.getMainConfig().continueSecond,trade).runTaskTimer(SafeTrade.plugin,0L,20L)
+            CheckSuccessTask(ConfigUtil.mainConfig.continueSecond,trade).runTaskTimer(SafeTrade.plugin,0L,20L)
 
             //向双方发送接受成功的消息
             val senderName = trade.sender.name
             val receiverName = trade.receiver.name
-            trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().acceptSuccessSender,senderName,receiverName))
-            trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().acceptSuccessReceiver,senderName,receiverName))
+            trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.acceptSuccessSender,senderName,receiverName))
+            trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.acceptSuccessReceiver,senderName,receiverName))
         }
     }
 
@@ -85,7 +85,7 @@ class PlayerCommands {
     fun denyTrade(receiver: CommandSender) {
         val index = TradeManager.getTradeIndex(receiver.name)
         if(index == -1) {
-            receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().denyFail,receiver.name))
+            receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.denyFail,receiver.name))
         }else{
             var trade = TradeManager.tradeList.get(index)
 
@@ -95,8 +95,8 @@ class PlayerCommands {
             //向双方发送成功拒绝的消息
             val senderName = trade.sender.name
             val receiverName = trade.receiver.name
-            trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().denySuccessSender,senderName,receiverName))
-            trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().denySuccessReceiver,senderName,receiverName))
+            trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.denySuccessSender,senderName,receiverName))
+            trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.denySuccessReceiver,senderName,receiverName))
         }
     }
 
@@ -110,17 +110,17 @@ class PlayerCommands {
             val set = HashSet<String>()
             set.add(player.name)
             BlackListUtil.map[sender.name] = set
-            sender.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().addIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
             return
         }
         //包含则删除
         if(blackSet.contains(player.name)) {
             blackSet.remove(player.name)
-            sender.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().removeIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.removeIgnore).replace("{player}", player.name))
             return
         }
         //不包含则添加
         blackSet.add(player.name)
-        sender.sendMessage(MessageUtil.text(ConfigUtil.getLangConfig().addIgnore).replace("{player}", player.name))
+        sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
     }
 }

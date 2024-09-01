@@ -25,12 +25,12 @@ class HoverUtil {
             return MessageUtil.text(text
                 .replace("%sender_name%", senderName)
                 .replace("%receiver_name%", receiverName)
-                .replace("%s%", ConfigUtil.getMainConfig().cancelSecond.toString()))
+                .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
         }
         fun replacePapi(text: String, receiverName: String): String {
             return MessageUtil.text(text
                 .replace("%receiver_name%", receiverName)
-                .replace("%s%", ConfigUtil.getMainConfig().cancelSecond.toString()))
+                .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
         }
     }
 }

@@ -23,7 +23,7 @@ class CheckSuccessTask(private var successSecond:Int,private val trade: Trade) :
         if(!this.trade.isSenderConfirm || !this.trade.isReceiverConfirm) {
             //如果duration的时长 < 0  则认为双方未准备完成
             //如果duration的时长 >= 0 则认为双方正等待交易完成
-            this.successSecond = ConfigUtil.getMainConfig().continueSecond
+            this.successSecond = ConfigUtil.mainConfig.continueSecond
             trade.tradeInventory.updateYellowButton(-1)
             return
         }
@@ -45,21 +45,21 @@ class CheckSuccessTask(private var successSecond:Int,private val trade: Trade) :
         trade.receiver.openInventory(trade.giveToReceiverKit)
 
         //TODO logs相关代码
-        if (ConfigUtil.getMainConfig().startLogs.enabled) {
+        if (ConfigUtil.mainConfig.startLogs.enabled) {
             val log = Log(
                 trade.getSenderKitItemInfo(),
                 trade.getReceiverKitItemInfo(),
                 SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
             )
             LogManager.addLog(log)
-            if (ConfigUtil.getMainConfig().startLogs.consoleEnabled) {
+            if (ConfigUtil.mainConfig.startLogs.consoleEnabled) {
                Bukkit.getConsoleSender().sendMessage(log.getLogInfo())
             }
         }
 
 
-        trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().tradeSuccess,trade.sender.name,trade.receiver.name))
-        trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.getLangConfig().tradeSuccess,trade.sender.name,trade.receiver.name))
+        trade.sender.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.tradeSuccess,trade.sender.name,trade.receiver.name))
+        trade.receiver.sendMessage(HoverUtil.replacePapi(ConfigUtil.langConfig.tradeSuccess,trade.sender.name,trade.receiver.name))
 
         this.cancel()
     }
