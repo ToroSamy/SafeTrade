@@ -44,7 +44,6 @@ class CheckSuccessTask(private var successSecond:Int,private val trade: Trade) :
         trade.sender.openInventory(trade.giveToSenderKit)
         trade.receiver.openInventory(trade.giveToReceiverKit)
 
-        //TODO logs相关代码
         if (ConfigUtil.mainConfig.startLogs.enabled) {
             val log = Log(
                 trade.getSenderKitItemInfo(),
