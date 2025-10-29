@@ -3,6 +3,7 @@ package net.torosamy.safeTrade.listener
 import net.torosamy.safeTrade.manager.TradeManager
 import net.torosamy.safeTrade.pojo.Trade
 import net.torosamy.safeTrade.pojo.TradeInventory
+import net.torosamy.safeTrade.pojo.TradeInventoryHolder
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -50,7 +51,7 @@ class ClickInventoryListener : Listener {
         val trade: Trade = TradeManager.tradeList.get(index)
 
         //如果点击的容器不是交易相关的容器 则取消
-        if (event.inventory != trade.tradeInventory.inventory) return
+        if (!TradeInventoryHolder.isTradeInventory(event.inventory)) return
 
         //如果对应交易的发送者与点击容器的玩家名字相符
         val isSender:Boolean = trade.sender.name == player.name

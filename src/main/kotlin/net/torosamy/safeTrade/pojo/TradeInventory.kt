@@ -1,11 +1,13 @@
 package net.torosamy.safeTrade.pojo
 
+import net.torosamy.safeTrade.pojo.TradeInventoryHolder.Companion.TRADE_INVENTORY_HOLDER
 import net.torosamy.safeTrade.utils.ConfigUtil
 import net.torosamy.safeTrade.utils.HoverUtil
 import net.torosamy.torosamyCore.utils.MessageUtil
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.InventoryHolder
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 
@@ -22,17 +24,19 @@ class TradeInventory(var trade: Trade) {
         val greenButtonItem: ItemStack = createGreenButton()
         val grayFrameItem: ItemStack = createGrayFrame()
 
+
+        
         private fun createRedButton():ItemStack {
             var itemStack:ItemStack = ItemStack(Material.RED_STAINED_GLASS_PANE)
             var itemMeta: ItemMeta = itemStack.itemMeta as ItemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.redButtonHover))
+            itemMeta.setDisplayName(MessageUtil.format(ConfigUtil.langConfig.redButtonHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
         private fun createGreenButton():ItemStack {
             var itemStack:ItemStack = ItemStack(Material.LIME_STAINED_GLASS_PANE)
             var itemMeta: ItemMeta = itemStack.itemMeta as ItemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.greenButtonHover))
+            itemMeta.setDisplayName(MessageUtil.format(ConfigUtil.langConfig.greenButtonHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
@@ -40,7 +44,7 @@ class TradeInventory(var trade: Trade) {
         private fun createGrayFrame(): ItemStack {
             val itemStack = ItemStack(Material.GRAY_STAINED_GLASS_PANE)
             val itemMeta = itemStack.itemMeta
-            itemMeta.setDisplayName(MessageUtil.text(ConfigUtil.langConfig.grayFrameItemHover))
+            itemMeta.setDisplayName(MessageUtil.format(ConfigUtil.langConfig.grayFrameItemHover))
             itemStack.setItemMeta(itemMeta)
             return itemStack
         }
@@ -70,7 +74,7 @@ class TradeInventory(var trade: Trade) {
 
     var inventory: Inventory = createBaseInventory()
     fun createBaseInventory(): Inventory {
-        val inventory = Bukkit.createInventory(null,54,MessageUtil.text(ConfigUtil.langConfig.tradeInventoryTitle))
+        val inventory = Bukkit.createInventory(TRADE_INVENTORY_HOLDER,54,MessageUtil.format(ConfigUtil.langConfig.tradeInventoryTitle))
         for (grayFrameSlot in grayFrameSlots) {
             inventory.setItem(grayFrameSlot, grayFrameItem);
         }
@@ -93,5 +97,7 @@ class TradeInventory(var trade: Trade) {
         else trade.isReceiverConfirm = false
         trade.tradeInventory.inventory.setItem(slot, redButtonItem)
     }
+
+
 
 }

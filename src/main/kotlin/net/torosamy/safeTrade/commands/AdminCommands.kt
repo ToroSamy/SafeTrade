@@ -16,7 +16,7 @@ class AdminCommands {
     fun reloadConfig(sender: CommandSender) {
         ConfigUtil.reloadConfig()
         BlackListUtil.readFile()
-        sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.reloadMessage))
+        sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.reloadMessage))
     }
 
     @Command(value = "trade show")

@@ -31,7 +31,7 @@ class InteractEntityListener : Listener {
         val blackSet = BlackListUtil.map[receiver.name]
         //如果被发起者没有黑名单 或者黑名单不包含 则继续
         if (blackSet != null && blackSet.contains(sender.name)) {
-            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.sendFailIgnore).replace("{player}", receiver.name))
+            sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.sendFailIgnore).replace("{player}", receiver.name))
             return
         }
 

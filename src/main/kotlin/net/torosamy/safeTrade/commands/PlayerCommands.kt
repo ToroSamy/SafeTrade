@@ -22,7 +22,7 @@ class PlayerCommands {
         val blackSet = BlackListUtil.map[player.name]
         //如果被发起者没有黑名单 或者黑名单不包含 则继续
         if (blackSet != null && blackSet.contains(sender.name)) {
-            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.sendFailIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.sendFailIgnore).replace("{player}", player.name))
             return
         }
 
@@ -41,7 +41,7 @@ class PlayerCommands {
         val denyText = HoverUtil.replacePapi(ConfigUtil.langConfig.textDeny,sender.name,player.name)
         val denyHover = HoverUtil.replacePapi(ConfigUtil.langConfig.hoverDeny,sender.name,player.name)
 
-        player.sendMessage(MessageUtil.text(ConfigUtil.langConfig.sendSuccessOther))
+        player.sendMessage(MessageUtil.format(ConfigUtil.langConfig.sendSuccessOther))
         HoverUtil.sendCommandHover(player,HoverUtil.createCommandHover(acceptText,"/trade accept",acceptHover))
         HoverUtil.sendCommandHover(player,HoverUtil.createCommandHover(denyText,"/trade deny",denyHover))
     }
@@ -50,8 +50,8 @@ class PlayerCommands {
     @Permission("safetrade.cancel")
     @CommandDescription("取消自己的交易请求")
     fun cancelTrade(sender: CommandSender) {
-        if (TradeManager.removeTrade(sender.name)) { MessageUtil.text(ConfigUtil.langConfig.cancelSuccess) }
-        else MessageUtil.text(ConfigUtil.langConfig.cancelFail)
+        if (TradeManager.removeTrade(sender.name)) { MessageUtil.format(ConfigUtil.langConfig.cancelSuccess) }
+        else MessageUtil.format(ConfigUtil.langConfig.cancelFail)
     }
 
     @Command(value = "trade accept", requiredSender = Player::class)
@@ -110,17 +110,17 @@ class PlayerCommands {
             val set = HashSet<String>()
             set.add(player.name)
             BlackListUtil.map[sender.name] = set
-            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
             return
         }
         //包含则删除
         if(blackSet.contains(player.name)) {
             blackSet.remove(player.name)
-            sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.removeIgnore).replace("{player}", player.name))
+            sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.removeIgnore).replace("{player}", player.name))
             return
         }
         //不包含则添加
         blackSet.add(player.name)
-        sender.sendMessage(MessageUtil.text(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
+        sender.sendMessage(MessageUtil.format(ConfigUtil.langConfig.addIgnore).replace("{player}", player.name))
     }
 }

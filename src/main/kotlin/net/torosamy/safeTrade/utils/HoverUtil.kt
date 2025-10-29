@@ -10,10 +10,10 @@ import org.bukkit.entity.Player
 
 class HoverUtil {
     companion object {
-        fun createCommandHover(text: String, command: String, hover: String): TextComponent {
-            var message = TextComponent(MessageUtil.text(text))
+        fun createCommandHover(format: String, command: String, hover: String): TextComponent {
+            var message = TextComponent(MessageUtil.format(format))
             message.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, command)
-            message.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(MessageUtil.text(hover)).create())
+            message.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(MessageUtil.format(hover)).create())
             return message
         }
 
@@ -21,14 +21,14 @@ class HoverUtil {
             player.spigot().sendMessage(commandHover)
         }
 
-        fun replacePapi(text: String, senderName: String, receiverName: String): String {
-            return MessageUtil.text(text
+        fun replacePapi(format: String, senderName: String, receiverName: String): String {
+            return MessageUtil.format(format
                 .replace("%sender_name%", senderName)
                 .replace("%receiver_name%", receiverName)
                 .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
         }
-        fun replacePapi(text: String, receiverName: String): String {
-            return MessageUtil.text(text
+        fun replacePapi(format: String, receiverName: String): String {
+            return MessageUtil.format(format
                 .replace("%receiver_name%", receiverName)
                 .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
         }

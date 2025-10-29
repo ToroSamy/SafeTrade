@@ -2,6 +2,7 @@ package net.torosamy.safeTrade.listener
 
 import net.torosamy.safeTrade.manager.TradeManager
 import net.torosamy.safeTrade.pojo.Trade
+import net.torosamy.safeTrade.pojo.TradeInventoryHolder
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryCloseEvent
@@ -19,7 +20,7 @@ class CloseInventoryListener : Listener {
         if (!trade.isHandled) return
         //如果点击的容器不是交易相关的容器 则取消
 
-        if (trade.tradeInventory.inventory != event.inventory) { return }
+        if (!TradeInventoryHolder.isTradeInventory(event.inventory)) return
 
 
         trade.updateGiveToReceiverKit()
