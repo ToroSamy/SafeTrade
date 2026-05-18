@@ -1,8 +1,8 @@
 name: SafeTrade
-version: '2.0-SNAPSHOT'
 main: net.torosamy.safeTrade.SafeTrade
-api-version: '1.13'
-authors: [ Torosamy,yweiyang ]
-website: https://www.bitlie.net
+version: '${project.version}'
+author: '${plugin.yml.author}'
+website: '${plugin.yml.website}'
+api-version: '${plugin.yml.api}'
 depend:
   - TorosamyCore

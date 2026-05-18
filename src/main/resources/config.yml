@@ -4,8 +4,3 @@ cancel-second: 60
 sneak-mode: true
 #双方同意 取消的时长 秒
 continue-second: 5
-#记录日志
-start-logs:
-  enabled: true
-  #是否在控制台输出每次交易的内容
-  console-enabled: true

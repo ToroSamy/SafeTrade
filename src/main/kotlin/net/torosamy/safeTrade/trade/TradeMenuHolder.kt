@@ -1,14 +1,14 @@
-package net.torosamy.safeTrade.pojo
+package net.torosamy.safeTrade.trade
 
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.InventoryHolder
 
-class TradeInventoryHolder : InventoryHolder {
+class TradeMenuHolder : InventoryHolder {
     companion object {
-        val TRADE_INVENTORY_HOLDER: TradeInventoryHolder = TradeInventoryHolder()
+        val TRADE_INVENTORY_HOLDER = TradeMenuHolder()
         
         fun isTradeInventory(inventory: Inventory): Boolean {
-            return inventory.holder is TradeInventoryHolder
+            return inventory.holder is TradeMenuHolder
         }
     }
     override fun getInventory(): Inventory {

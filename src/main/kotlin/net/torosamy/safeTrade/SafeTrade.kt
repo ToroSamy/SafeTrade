@@ -1,6 +1,6 @@
 package net.torosamy.safeTrade
 
-import net.torosamy.safeTrade.utils.BlackListUtil
+import net.torosamy.safeTrade.api.TradeAPI
 import net.torosamy.safeTrade.utils.CommandUtil
 import net.torosamy.safeTrade.utils.ConfigUtil
 import net.torosamy.safeTrade.utils.ListenerUtil
@@ -16,8 +16,7 @@ class SafeTrade : JavaPlugin() {
         ConfigUtil.reloadConfig()
         CommandUtil.registerCommand()
         ListenerUtil.registerListener()
-        BlackListUtil.loadFile()
-        BlackListUtil.readFile()
+        TradeAPI.loadFile()
 
         Bukkit.getConsoleSender().sendMessage(MessageUtil.format("&b[服务器娘]&a插件 &eSafeTrade &a成功开启喵~"))
         Bukkit.getConsoleSender().sendMessage(MessageUtil.format("&b[服务器娘]&a作者 &eTorosamy|yweiyang"))
@@ -25,7 +24,7 @@ class SafeTrade : JavaPlugin() {
 
     override fun onDisable() {
         ConfigUtil.saveConfig()
-        BlackListUtil.writeFile()
+        TradeAPI.saveFile()
 
         Bukkit.getConsoleSender().sendMessage(MessageUtil.format("&b[服务器娘]&c插件 &eSafeTrade &c成功关闭喵~"))
         Bukkit.getConsoleSender().sendMessage(MessageUtil.format("&b[服务器娘]&c作者 &eTorosamy|yweiyang"))

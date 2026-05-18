@@ -1,8 +1,7 @@
 package net.torosamy.safeTrade.listener
 
-import net.torosamy.safeTrade.manager.TradeManager
-import net.torosamy.safeTrade.pojo.Trade
-import net.torosamy.safeTrade.pojo.TradeInventoryHolder
+import net.torosamy.safeTrade.trade.Trade
+import net.torosamy.safeTrade.trade.TradeMenuHolder
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryCloseEvent
@@ -12,24 +11,14 @@ class CloseInventoryListener : Listener {
     fun closeInventory(event: InventoryCloseEvent) {
         val player = event.player
 
-        //查找对应的交易
-        val index = TradeManager.getTradeIndex(player.name)
-        if (index == -1) return
-        val trade: Trade = TradeManager.tradeList.get(index)
-        //如果能查找到 并且还已经处理了 那么一定是同意类型的处理 可以认为正在交易当中
-        if (!trade.isHandled) return
-        //如果点击的容器不是交易相关的容器 则取消
+        if (!TradeMenuHolder.isTradeInventory(event.inventory)) return
 
-        if (!TradeInventoryHolder.isTradeInventory(event.inventory)) return
+        val trade = Trade.getTrade(player.name) ?: return
 
-
-        trade.updateGiveToReceiverKit()
-        trade.updateGiveToSenderKit()
-
-
-        TradeManager.removeTrade(index)
-
-        trade.sender.openInventory(trade.giveToReceiverKit)
-        trade.receiver.openInventory(trade.giveToSenderKit)
+        Trade.removeTrade(player.name)
+        
+        trade.giveBackItem()
+        trade.openKit()
+        
     }
 }

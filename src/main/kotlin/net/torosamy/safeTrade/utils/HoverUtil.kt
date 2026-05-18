@@ -5,32 +5,24 @@ import net.md_5.bungee.api.chat.ClickEvent
 import net.md_5.bungee.api.chat.ComponentBuilder
 import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
+import net.md_5.bungee.api.chat.hover.content.Text
 import net.torosamy.torosamyCore.utils.MessageUtil
 import org.bukkit.entity.Player
 
-class HoverUtil {
-    companion object {
-        fun createCommandHover(format: String, command: String, hover: String): TextComponent {
-            var message = TextComponent(MessageUtil.format(format))
-            message.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, command)
-            message.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(MessageUtil.format(hover)).create())
-            return message
-        }
+object HoverUtil {
+    fun replaceExpired(message: String): String {
+        return message.replace("%expired%".toRegex(), ConfigUtil.mainConfig.cancelSecond.toString())
+    }
 
-        fun sendCommandHover(player: Player, commandHover: TextComponent) {
-            player.spigot().sendMessage(commandHover)
-        }
+    fun getComponent(message: String, hoverMessage: String, command: String): TextComponent {
+        val textComponent = TextComponent(message)
 
-        fun replacePapi(format: String, senderName: String, receiverName: String): String {
-            return MessageUtil.format(format
-                .replace("%sender_name%", senderName)
-                .replace("%receiver_name%", receiverName)
-                .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
-        }
-        fun replacePapi(format: String, receiverName: String): String {
-            return MessageUtil.format(format
-                .replace("%receiver_name%", receiverName)
-                .replace("%s%", ConfigUtil.mainConfig.cancelSecond.toString()))
-        }
+        textComponent.hoverEvent =
+            HoverEvent(HoverEvent.Action.SHOW_TEXT, Text(hoverMessage))
+
+        textComponent.clickEvent =
+            ClickEvent(ClickEvent.Action.RUN_COMMAND, command)
+
+        return textComponent
     }
 }

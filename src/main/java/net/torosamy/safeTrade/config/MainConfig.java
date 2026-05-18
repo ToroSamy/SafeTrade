@@ -8,11 +8,4 @@ public class MainConfig implements IConfigManage {
     public Boolean sneakMode;
 
     public Integer continueSecond;
-
-    public StartLogs startLogs = new StartLogs();
-    public class StartLogs implements IConfigManage {
-        public Boolean enabled;
-        public Boolean consoleEnabled;
-//        public Boolean autoSave;
-    }
 }

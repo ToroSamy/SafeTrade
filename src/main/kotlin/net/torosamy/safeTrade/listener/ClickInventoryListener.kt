@@ -1,112 +1,78 @@
 package net.torosamy.safeTrade.listener
 
-import net.torosamy.safeTrade.manager.TradeManager
-import net.torosamy.safeTrade.pojo.Trade
-import net.torosamy.safeTrade.pojo.TradeInventory
-import net.torosamy.safeTrade.pojo.TradeInventoryHolder
+import net.torosamy.safeTrade.trade.Trade
+import net.torosamy.safeTrade.trade.TradeMenuHolder
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
-import org.bukkit.event.inventory.ClickType
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryDragEvent
+import org.bukkit.event.inventory.InventoryType
 
 class ClickInventoryListener : Listener {
+//    private val senderCannotSlots: IntArray = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 22, 23, 24, 25, 26, 27, 31, 32, 33, 34, 35, 36, 40, 41, 42, 43, 44, 45, 46, 47, 49, 50, 51, 52, 53)
+//    
+//    private val receiverCannotSlots: IntArray = intArrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 17, 18, 19, 20, 21, 22, 26, 27, 28, 29, 30, 31, 35, 36, 37, 38, 39, 40, 44, 45, 46, 47, 48, 49, 51, 52, 53)
+
     @EventHandler
     fun inventoryClickInventoryEvent(event: InventoryClickEvent) {
-        //如果点击容器的人不是玩家
         if (event.whoClicked !is Player) return
 
-        val player: Player = event.whoClicked as Player
+        val player = event.whoClicked as Player
 
-        //查找对应的交易
-        val index = TradeManager.getTradeIndex(player.name)
-        if (index == -1) return
-        val trade: Trade = TradeManager.tradeList.get(index)
-        if (event.inventory != trade.tradeInventory.inventory) return
-        //如果已经同意或拒绝了交易 并且交易还未完成则监听
+        val trade = Trade.getTrade(player.name) ?: return
 
-        if (!trade.isHandled || trade.tradeInventory.isFinished) { return }
+        if (!TradeMenuHolder.isTradeInventory(event.inventory)) return
 
-        //如果对应交易的发送者与点击容器的玩家名字相符
-        //那么 取消发送者不可点击的位置
-        //否则 取消接受者不可点击的位置
-        if (trade.sender.name == player.name) {
-            cancelClick(event,trade,48,TradeInventory.senderCannotSlots)
-        }else {
-            cancelClick(event,trade,50,TradeInventory.receiverCannotSlots)
+        val inventory = event.clickedInventory ?: return
+
+        trade.updateConfirm(player.name, event.slot)
+        
+        if (inventory.type == InventoryType.PLAYER) {
+            return
+        }
+        
+        if (!trade.canClick(player.name, event.slot)) {
+            event.isCancelled = true
+            return
         }
     }
 
     @EventHandler
     fun inventoryDragEvent(event: InventoryDragEvent) {
-        //如果点击容器的人不是玩家
         if (event.whoClicked !is Player) return
+        
+        if (!TradeMenuHolder.isTradeInventory(event.inventory)) return
 
-        val player: Player = event.whoClicked as Player
-
-        //查找对应的交易
-        val index = TradeManager.getTradeIndex(player.name)
-        if (index == -1) return
-        val trade: Trade = TradeManager.tradeList.get(index)
-
-        //如果点击的容器不是交易相关的容器 则取消
-        if (!TradeInventoryHolder.isTradeInventory(event.inventory)) return
-
-        //如果对应交易的发送者与点击容器的玩家名字相符
-        val isSender:Boolean = trade.sender.name == player.name
-        //那么 取消发送者不可点击的位置
-        //否则 取消接受者不可点击的位置
-        val cannotSlots:IntArray
-        if(isSender) cannotSlots =TradeInventory.senderCannotSlots
-        else cannotSlots = TradeInventory.receiverCannotSlots
-        for (rawSlot in event.rawSlots) {
-            for (cannotSlot in cannotSlots) {
-                if(cannotSlot == rawSlot) {
-                    event.isCancelled = true
-                    return
-                }
-            }
-        }
-        if(isSender) trade.tradeInventory.falseConfirmStatus(48)
-        else trade.tradeInventory.falseConfirmStatus(50)
+        event.isCancelled = true
     }
 
-
-    companion object {
-        /**
-         * @param event 对应的时间
-         * @param trade 对应的交易
-         * @param slot 完成准备按钮的位置
-         * @param canSlots 可以点击的位置
-         * @param cannotSlots 不可以点击的位置
-         */
-        fun cancelClick(event: InventoryClickEvent, trade: Trade, slot: Int, cannotSlots: IntArray) {
-            if (event.rawSlot == slot) {
-                trade.tradeInventory.updateConfirmStatus(slot)
-                event.isCancelled = true
-                return
-            }
-
-            for(cannot in cannotSlots) {
-                if(event.rawSlot == cannot) {
-                    event.isCancelled = true
-                    return
-                }
-            }
-
-
-            if(event.isShiftClick) {
-                event.isCancelled = true
-                return
-            }
-
-            if(event.click == ClickType.DOUBLE_CLICK) {
-                event.isCancelled = true
-                return
-            }
-
-            trade.tradeInventory.falseConfirmStatus(slot)
-        }
-    }
+//
+//    fun cancelClick(event: InventoryClickEvent, trade: Trade, slot: Int, cannotSlots: IntArray) {
+//        if (event.rawSlot == slot) {
+//            trade.tradeInventory.updateConfirmStatus(slot)
+//            event.isCancelled = true
+//            return
+//        }
+//
+//        for(cannot in cannotSlots) {
+//            if(event.rawSlot == cannot) {
+//                event.isCancelled = true
+//                return
+//            }
+//        }
+//
+//
+//        if(event.isShiftClick) {
+//            event.isCancelled = true
+//            return
+//        }
+//
+//        if(event.click == ClickType.DOUBLE_CLICK) {
+//            event.isCancelled = true
+//            return
+//        }
+//
+//        trade.tradeInventory.falseConfirmStatus(slot)
+//    }
 }
